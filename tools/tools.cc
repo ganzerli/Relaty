@@ -102,6 +102,161 @@ string Tools::trimRepetitions(string str){
         }
         notThere = true;
     }
-
     return result;
+}
+
+bool Tools::isNum(string strNum){
+    bool isNum = true;
+    bool pass = false;
+
+    const char table[10] ={'0','1','2','3','4','5','6','7','8','9'};
+    char tempChar;
+    char tempTableChar;
+
+    // IF ONCE IS NOT A NUMBER THEN FLAG AS FALSE
+    for(int i =0; i< strNum.size(); i++){
+        tempChar = strNum[i];
+        // find if the temp char is a number
+        for(int j =0; j < 10; j++){
+            tempTableChar = table[j];
+            if(tempChar == tempTableChar){
+                pass = true;
+                break;
+            }
+        }
+        // ever been a not NUMBER??
+        if(!pass){
+            isNum = false;
+            break;
+        }
+        pass = false;
+    }
+    return isNum;
+}
+
+// FORMAT dd mm yyyy
+bool Tools::isDatum(string strNum){
+    bool isDatum = false;
+    if(strNum.size() == 8 &&  isNum(strNum)){
+        // better check also if 
+            // first2 are < then 31,
+            // month < then 12.. but for now..
+            isDatum = true;
+    }
+    return isDatum;
+}
+
+vector<vector<string>> Tools::filterVecVec(vector<vector<string>> vecVec, int index, string logicGate, string possibilities){
+    vector<vector<string>> filtered;
+    Tools tools;
+
+    bool pass = false;
+    vector<string> poss = tools.strToVec(possibilities, ' ');
+    vector<string> takenResults;
+    int counter = 0;
+
+    string tempString;
+    string tempString2;
+
+    if(logicGate == "and"){
+        // if it has all the requirements add
+        for(int i = 0 ; i < vecVec.size(); i++){
+            // for every record in the vecVec, check if in possibilities
+            // get the possibilities from the RESULT, present vector
+            tempString = vecVec[i][index];
+            takenResults = tools.strToVec(tempString, ' ');
+
+            for(int j = 0 ; j < poss.size() ; j++){
+                tempString = poss[j];
+
+                for(int k = 0 ; k < takenResults.size() ; k++){
+                    // check if in the results there is a possibility
+                    tempString2 = takenResults[k];
+                    if(tempString == tempString2){
+                        // set true if appears a possibilitiy
+                        //  pass = true;
+                        counter ++;
+                        break;
+                    }
+                }
+
+                // if all possibilities found
+                if(counter == poss.size()){
+                    filtered.push_back(vecVec[i]);
+                }
+
+            }   
+            counter = 0;
+        }
+
+    }else if(logicGate == "or"){
+        // add at avery requirement found
+        for(int i = 0 ; i < vecVec.size(); i++){
+            // for every record in the vecVec, check if in possibilities
+            // get the possibilities from the RESULT, present vector
+            tempString = vecVec[i][index];
+            takenResults = tools.strToVec(tempString, ' ');
+
+            for(int j = 0 ; j < poss.size() ; j++){
+                tempString = poss[j];
+
+                for(int k = 0 ; k < takenResults.size() ; k++){
+                    // check if in the results there is a possibility
+                    tempString2 = takenResults[k];
+
+                    if(tempString == tempString2){
+                        // set true if appears a possibilitiy
+                        pass = true;
+                        break;
+                    }
+                }
+
+                if(pass){
+                    break;
+                }
+            }   
+
+            // if all possibilities found
+            if(pass){
+                filtered.push_back(vecVec[i]);
+                pass = false;
+            }
+        }
+       
+
+    }else if(logicGate == "not"){
+        // add if no one of possibilities
+        for(int i = 0 ; i < vecVec.size(); i++){
+            // for every record in the vecVec, check if in possibilities
+            // get the possibilities from the RESULT, present vector
+            tempString = vecVec[i][index];
+            takenResults = tools.strToVec(tempString, ' ');
+
+            for(int j = 0 ; j < poss.size() ; j++){
+                tempString = poss[j];
+                for(int k = 0 ; k < takenResults.size() ; k++){
+                    // check if in the results there is a possibility
+                    tempString2 = takenResults[k];
+                    if(tempString == tempString2){
+                        // set true if appears a possibilitiy
+                        pass = true;
+                        break;
+                    }
+                }
+                if(pass){
+                    break;
+                }
+            }   
+
+            // if all possibilities found
+            if(!pass){
+                filtered.push_back(vecVec[i]);
+            }else{
+                pass = false;
+            }
+        }
+
+    }
+
+    return filtered;
 }

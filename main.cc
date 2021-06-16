@@ -48,7 +48,7 @@ int main (){
     //rel.getRelationsFromConcept("anfassen");
 
     //tools.strToVec("rrioja sniffen", ' ');
-    
+
     // INTRO AND WELCOME
     cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
     cout << "@                        @" << endl;    
@@ -121,7 +121,7 @@ int main (){
     // LOOP START
     while(pass){
         q = ask(
-            "Select action, NUMBER: \n1)INSERT record\n2)SEARCH record\n3)UPDATE record\n4)DELETE record\n5)ADD RELATION\n6)UPDATE CONCEPT\n7)SEARCH FROM CONCEPTS/RELATIONS\n8)SEARCH PRECISE WORD GIVEN CONCEPT\n9)\n10)\n11)\n12)\n13)\n14)\n15)ENCRYPT AND EXIT\n"
+            "Select action, NUMBER: \n1)INSERT record\n2)SEARCH record\n3)UPDATE record\n4)DELETE record\n5)ADD RELATION\n6)UPDATE CONCEPT\n7)SEARCH FROM CONCEPTS/RELATIONS\n8)SEARCH PRECISE WORD GIVEN CONCEPT\n9)LIST RELATIONS\n10)\n11)\n12)\n13)\n14)\n15)ENCRYPT AND EXIT\n"
         );
         if(q == "1"||q == "2"||q == "3"||q == "4"||q == "5"||q == "6"||q == "7"||q == "8"||q == "9"||q == "10"||q == "11"||q == "12"||q == "13"||q == "14"||q == "15" /* POSSIBLE EXITS */ || q == "exit" || q == "quit" || q == "EXIT"|| q == "QUIT"|| q == "Q"){
             if(q == "exit" || q == "quit" || q == "EXIT"|| q == "QUIT"|| q == "Q"){
@@ -301,7 +301,7 @@ int main (){
                 tempString = ask("select a value for the concept 1 - 5");
                 stringVector.push_back(tempString);
                 
-                tempString = ask("selecta replacement if wanted , leave empty to delete");
+                tempString = ask("select a replacement if wanted , leave empty to delete");
                 stringVector.push_back(tempString);
                 
                 rel.updateConcept(stringVector[0], stringVector[1], stringVector[2], stringVector[3]);
@@ -325,9 +325,10 @@ int main (){
                 tempString = ask("select concept to search in records, divided by spaces ex.:abc defg");
                 vecVec = search.fromRelations(tempString);
 
+                //vecVec = tools.filterVecVec(vecVec,0,"not","dahin");
+
                 cout << " " << endl;    
                 cout << "# searching  " << tempString << endl;
-
 
                 for(int i = 0; i < vecVec.size(); i++){
                                     
@@ -336,6 +337,10 @@ int main (){
                     cout << vecVec[i][0] << endl;
                     cout << "# from relations and concepts of: " << endl;
                     cout << " relations >> " << vecVec[i][1] <<" << abut this text" <<endl;
+                    cout << " relations >> " << vecVec[i][2] <<" << abut this text" <<endl;
+                    cout << " relations >> " << vecVec[i][3] <<" << abut this text" <<endl;
+
+
                 cout << " " << endl;   
                 }
 
@@ -388,7 +393,24 @@ int main (){
             break;
 
             case 9:
-                cout << "OPTION NOT IMPLEMENTED YET .. ROTE <3" << userAction << endl;
+
+                cout << "#############################"<< endl;
+                cout << "#                           #"<< endl;
+                cout << "#       LIST RELAITONS      #"<< endl;
+                cout << "#                           #"<< endl;
+                cout << "#############################"<< endl;
+                cout << ""<< endl;
+                
+
+                stringVector = rel.relFileToVector();
+
+                for(int i = 0; i < stringVector.size(); i++){
+                    cout << stringVector[i] << endl;
+                }              
+                cout << ""<< endl;
+
+
+
             break;
             
             case 10:
@@ -451,7 +473,7 @@ int main (){
             break;
 
             case 15:
-                cout << "ENCRYPT WIT PASSWORD "<< PASSWORD << "and EXIT" << endl;
+                cout << "ENCRYPT WIT PASSWORD "<< PASSWORD << " and EXIT" << endl;
 
                 //#####################    ENCRYPT   ########################
                 // ENCRUPT all files present in filenames file ANY
@@ -496,10 +518,10 @@ int main (){
                 pass = false;
             break;
             }   
-            
-            cout << "#                                                               #"<<endl;
-            cout << "# EXECUTION TERMINATED, choose another action or exit ->   15)  #"<< endl;
-            cout << "#                                                ====    ====== #"<<endl;
+
+            if(userAction != 15){
+                ask("\n\n\n---------------------------------\npress enter for MENU");
+            }
 
         }else{
         ///////////////////////////////

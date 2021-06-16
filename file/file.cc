@@ -5,7 +5,7 @@
 #include "../tools/tools.h"
 
 using namespace std;
-// 6
+
 vector<char> File::getFileContent(string path){
     vector<char> output;
     string line;
@@ -114,8 +114,6 @@ vector<char> File::standardTemplate(){
             standardTemplate.push_back('0');
         }
     }
-
-
     return standardTemplate;
 }
 
@@ -134,7 +132,6 @@ vector<char> File::getIndex(vector<char> content){
         index.push_back(content[i]);
     }
     return index;
-
 }
 
 vector<string> File::dataOfDay(string date , vector<char> index){
@@ -210,7 +207,7 @@ void File::insertInDate(string date , string newContent , string relations){
         path += date[i];
     }
     path += ".txt";
-    
+
     //get day and mont from date
     string day; day+= date[0]; day += date[1];
     string month; month += date[2]; month += date[3];
