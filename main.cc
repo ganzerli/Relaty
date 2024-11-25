@@ -42,12 +42,12 @@ int main (){
     Relations rel;
     Tools tools;
 
-    rel.findRelationsToText("titte rote assunta hello we are living very good, the first that does not find gelbe kaelbe a species in awerness to extincion, can shoot to them");
+    rel.findRelationsToText("hello we are living very good, or at least hope to");
 
-    //rel.updateConcept("rrioja","anfassen","5","");
-    //rel.getRelationsFromConcept("anfassen");
+    //rel.updateConcept("bad-day","concept-1","5","");
+    //rel.getRelationsFromConcept("concept-1");
 
-    //tools.strToVec("rrioja sniffen", ' ');
+    //tools.strToVec("have better day", ' ');
 
     // INTRO AND WELCOME
     cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
@@ -100,7 +100,7 @@ int main (){
 //     // ################### DECRYPT END  #########################
 
 
-    //search.fromRelations("assunta titte");
+    //search.fromRelations("relation-1 relation-abc");
 
     
     //          ####################################
@@ -163,7 +163,7 @@ int main (){
                 // INSERT IN DATE    
                 text = ask("insert text");
                 // if...
-                // relations = rel.rel.findRelationsToText(text);
+                // relations = rel.findRelationsToText(text);
                 relations = ask("insert relations");
                 file.insertInDate(date, text, relations);
 
